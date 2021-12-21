@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BarCodes Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        min-height: 100vh;
+      }
+
+      #theToast {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .wrapper {
+        width: 80%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+      }
+
+      .tv_box {
+        width: 100%;
+      }
+
+      select {
+        width: 15% !important;
+        height: 38px;
+      }
+      :is(select, input, button):focus {
+        box-shadow: none !important;
+        border-color: 0 !important;
+      }
+
+      .url_box {
+        width: 100%;
+      }
+
+      .seleceTv {
+        flex-direction: column;
+        width: 75%;
+        margin: 0 auto;
+      }
+      .seleceTv .select_export {
+        width: 100% !important;
+      }
+
+      @media screen and (max-width: 600px) {
+        .seleceTv {
+          width: 100%;
+          margin: 0 auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="theToast"
+      class="toast align-items-center text-white bg-primary border-0"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="d-flex">
+        <div class="toast-body">Hello !</div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="tv_box">
+        <h1 class="text-center" style="font-size: 6rem">BarGen</h1>
+
+        <h5 class="text-center" style="font-size: 0.8 rem; font-weight: 300">
+          🖤
+        </h5>
+        <div id="selectors" class="mt-5">
+          <form class="form0" id="form0" action="/" method="post">
+            <input type="hidden" name="dir" />
+            <div class="seleceTv d-flex">
+              <div class="input-group">
+                <span class="input-group-text">Enter Serial</span>
+                <input
+                  oninput="this.value = this.value.replace(/[^A-Za-z.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                  style="text-transform: uppercase"
+                  type="text"
+                  name="char"
+                  placeholder="ABCD"
+                  aria-label="Charecter"
+                  class="form-control text-center"
+                />
+                <input
+                  required
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                  type="text"
+                  name="num"
+                  placeholder="1234"
+                  aria-label="Number"
+                  class="form-control text-center"
+                />
+              </div>
+              <br />
+              <div class="input-group mb-3">
+                <span class="input-group-text">Enter Amount</span>
+                <input
+                  required
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                  type="text"
+                  class="form-control text-center"
+                  name="amount"
+                  placeholder="how many you want ?"
+                />
+                <input
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                  type="text"
+                  class="form-control text-center"
+                  name="height"
+                  placeholder="Bar height"
+                />
+                <span class="input-group-text">in millimeters</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="button d-flex justify-content-center">
+          <button
+            id="selectBtn"
+            type="submit"
+            class="btn btn-dark mt-3"
+            style="width: 20%; margin-right: 10px"
+          >
+            📂 select
+          </button>
+          <button
+            id="mainBtn"
+            type="submit"
+            class="btn btn-dark mt-3"
+            style="width: 20%"
+            form="form0"
+          >
+            🚀 start
+          </button>
+        </div>
+        <div class="row col-lg-12 d-flex justify-content-center">
+          <button
+            id="resetBtn"
+            type="submit"
+            onclick="location.reload()"
+            class="btn d-none btn-danger mt-3"
+            style="width: 15%"
+          >
+            Reset ❔
+          </button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
+      integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let resetBtn = document.querySelector("#resetBtn");
+      let form = document.querySelector("form");
+      let btn = document.querySelector("#mainBtn");
+      let dirBtn = document.querySelector("#selectBtn");
+      let toast = document.querySelector("#theToast");
+      let toastBody = document.querySelector(".toast-body");
+      let myToast = new bootstrap.Toast(toast);
+
+      dirBtn.onclick = () => {
+        window.getDir.dir();
+        let see = setInterval(() => {
+          if (window.path) {
+            clearInterval(see);
+            const folder = window.path.split(/\//);
+            dirBtn.innerHTML = `📂 ${folder[folder.length - 1]}`;
+            dirBtn.setAttribute("disabled", "");
+            form[0].value = window.path;
+            resetBtn.classList.remove("d-none");
+          }
+        }, 1000);
+      };
+
+      form.onsubmit = async function (e) {
+        try {
+          e.preventDefault();
+          console.log(window.path);
+          btn.innerHTML = "working... 😇";
+          btn.setAttribute("disabled", "");
+          btn.classList.remove("btn-dark");
+          btn.classList.add("btn-secondary");
+
+          if (!window.path) {
+            toastBody.innerHTML = "select folder first" + " 😒";
+            toast.classList.remove("bg-primary");
+            toast.classList.add("bg-danger");
+            myToast.show();
+
+            btn.innerHTML = "🚀 start";
+            btn.removeAttribute("disabled", "");
+            btn.classList.add("btn-dark");
+            btn.classList.remove("btn-secondary");
+            return false;
+          }
+
+          let formData = new URLSearchParams(new FormData(this));
+
+          let response = await fetch("/", {
+            method: "POST",
+            body: formData,
+          });
+          let result = await response.json();
+
+          if (result.error) {
+            toastBody.innerHTML = result.error + " 😒";
+            toast.classList.remove("bg-primary");
+            toast.classList.add("bg-danger");
+            myToast.show();
+
+            btn.innerHTML = "🚀 start";
+            btn.removeAttribute("disabled", "");
+            btn.classList.add("btn-dark");
+            btn.classList.remove("btn-secondary");
+          }
+          if (result.msg) {
+            this.reset();
+            toastBody.innerHTML = "complete 😃";
+            toast.classList.remove("bg-primary");
+            toast.classList.add("bg-success");
+            myToast.show();
+
+            btn.innerHTML = "🚀 start";
+            btn.removeAttribute("disabled", "");
+            btn.classList.add("btn-dark");
+            btn.classList.remove("btn-secondary");
+          }
+        } catch (error) {
+          toastBody.innerHTML = error;
+          toast.classList.remove("bg-primary");
+          toast.classList.add("bg-danger");
+          myToast.show();
+
+          btn.innerHTML = "🚀 start";
+          btn.removeAttribute("disabled", "");
+          btn.classList.add("btn-dark");
+          btn.classList.remove("btn-secondary");
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "name": "bargen",
+  "productName": "BarGen",
+  "version": "1.0.0",
+  "description": "Bulk Barcodes Generator",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron src/main.js"
+  },
+  "build": {
+    "appId": "BarGen",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/icon1.ico"
+    },
+    "nsis": {
+      "installerIcon": "src/icon1.ico",
+      "uninstallerIcon": "src/icon1.ico",
+      "uninstallDisplayName": "BarGen",
+      "license": "license.txt",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [],
+  "author": {
+    "name": "rafi0x",
+    "email": "rafiulawal.r@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bwip-js": "^3.0.4",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "electron": "16.0.5",
+    "electron-builder": "^22.14.5"
+  }
+}
